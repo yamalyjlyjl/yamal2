@@ -1,0 +1,53 @@
+#include "stdio.h"
+#include "windows.h"
+#include "conio.h"
+#define L 9
+#define M 11
+char map[L][M+1]={
+	{"*#*********"},
+	{"***###*###*"},
+	{"###**#****#"},
+	{"*#**###**#*"},
+	{"***********"},
+	{"#####*##*##"},
+	{"**#*****#*E"},
+	{"***#*###**#"},
+	{"*#*********"}};
+	void print_map()
+	{
+		int i;
+		for(i=0;i<L;i++)
+			puts(map[i]);
+	}
+	void zb(int x,int y)
+	{
+	COORD pos;
+	pos.X=x;
+	pos.Y=y;
+	printf("cury=%d,curx=%d\n,y,x");
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),pos);
+	}
+	int curx,cury;
+	int main()
+	{
+		while(1)
+		{
+		system("cls");
+		print_map();
+		zb(curx,cury);
+		char t;
+		switch(t=getch())
+		{
+		case 'w':if(cury-1>=0&&(map[cury-1][curx]=='*'||map[cury-1][curx]=='E'))cury--;break;
+		case 's':if(cury+1<L&&(map[cury+1][curx]=='*'||map[cury+1][curx]=='E'))cury++;break;
+		case 'a':if(curx-1>=0&&(map[cury][curx-1]=='*'||map[cury][curx-1]=='E'))curx--;break;
+		case 'd':if(curx-1<M&&(map[cury][curx+1]=='*'||map[cury][curx+1]=='E'))curx++;break;
+		}
+		if(map[cury][curx]=='E')
+		{
+			
+			printf("恭喜你成功找到出口！\n");
+		}
+		}
+		return 0;
+	}
